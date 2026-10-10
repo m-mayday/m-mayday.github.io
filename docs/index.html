@@ -160,7 +160,11 @@
             let hasCompleted = false;
             let hasArchived = false;
 
-            projects.sort((a, b) => a.title.localeCompare(b.title));
+            projects.sort((a, b) => {
+                const dateA = Date.parse(a.last_updated) || 0;
+                const dateB = Date.parse(b.last_updated) || 0;
+                return dateB - dateA;
+            });
 
             projects.forEach(p => {
                 if (p.status === 'In Progress' || p.status === 'On Hold') {
